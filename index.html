@@ -509,17 +509,6 @@
             }
         }
 
-        .history-item::after {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 4px;
-            width: 32px;
-            height: 12px;
-            background: rgba(255, 255, 255, .15);
-            border-radius: 50% 50% 0 0;
-        }
-
         /* Numpad */
         .numpad-grid {
             display: grid;
@@ -981,86 +970,205 @@
         }
 
         .insight-alert {
-            background: rgba(212, 175, 55, .05);
-            border: 1px solid rgba(212, 175, 55, .2);
-            border-left: 4px solid var(--gold);
-            border-radius: 8px;
-            padding: .75rem;
-            animation: flashBorder 2s infinite alternate;
+            background: rgba(18, 30, 22, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-left: 5px solid var(--gold);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: flashBorder 2.5s infinite alternate;
         }
 
         .insight-alert.danger {
-            background: rgba(220, 53, 69, .05);
-            border-color: rgba(220, 53, 69, .2);
+            background: rgba(30, 15, 18, 0.6);
+            border-color: rgba(220, 53, 69, 0.25);
             border-left-color: #dc3545;
-            animation: flashBorderRed 2s infinite alternate;
+            animation: flashBorderRed 2.5s infinite alternate;
+        }
+
+        .insight-alert:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
         }
 
         @keyframes flashBorder {
             0% {
-                border-color: rgba(212, 175, 55, .2);
+                border-color: rgba(212, 175, 55, 0.2);
             }
 
             100% {
-                border-color: rgba(212, 175, 55, .6);
+                border-color: rgba(212, 175, 55, 0.6);
             }
         }
 
         @keyframes flashBorderRed {
             0% {
-                border-color: rgba(220, 53, 69, .2);
+                border-color: rgba(220, 53, 69, 0.2);
             }
 
             100% {
-                border-color: rgba(220, 53, 69, .6);
+                border-color: rgba(220, 53, 69, 0.6);
             }
         }
 
-        .alert-header {
+        .alert-header-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: .8rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: .25rem;
+            margin-bottom: 0.75rem;
+            gap: 0.5rem;
         }
 
-        .insight-alert.danger .alert-header {
+        .alert-badge-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .alert-pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--gold);
+            box-shadow: 0 0 8px var(--gold);
+            display: inline-block;
+            animation: pulseGlow 1.5s infinite ease-in-out;
+        }
+
+        .insight-alert.danger .alert-pulse-dot {
+            background-color: #dc3545;
+            box-shadow: 0 0 8px #dc3545;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .alert-title-text {
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: #fff;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .alert-pill-badge {
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--gold);
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .insight-alert.danger .alert-pill-badge {
+            background: rgba(220, 53, 69, 0.15);
+            border-color: rgba(220, 53, 69, 0.3);
             color: #ff6b6b;
         }
 
-        .alert-desc {
-            font-size: .82rem;
-            line-height: 1.4;
-            color: var(--text-muted);
+        .alert-stats-display {
+            display: flex;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 0.5rem;
+            margin-bottom: 0.75rem;
+            gap: 0.5rem;
         }
 
-        .alert-recommendation {
-            margin-top: .5rem;
-            padding-top: .4rem;
-            border-top: 1px dashed rgba(255, 255, 255, .1);
-            font-weight: 700;
-            font-size: .82rem;
+        .alert-stat-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .alert-stat-item:not(:last-child) {
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .alert-stat-value {
+            font-size: 1.1rem;
+            font-weight: 800;
             color: #fff;
+        }
+
+        .insight-alert.danger .alert-stat-value.highlighted {
+            color: #ff4d5e;
+        }
+
+        .alert-stat-value.highlighted {
+            color: var(--gold);
+        }
+
+        .alert-stat-label {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        .alert-description-box {
+            font-size: 0.8rem;
+            line-height: 1.45;
+            color: #d1d5db;
+            margin-bottom: 0.75rem;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .alert-rec-box {
+            background: rgba(40, 167, 69, 0.12);
+            border: 1px solid rgba(40, 167, 69, 0.25);
+            border-radius: 8px;
+            padding: 0.6rem 0.8rem;
+            font-size: 0.82rem;
+            color: #e2fcdb;
             display: flex;
             align-items: flex-start;
-            gap: .3rem;
+            gap: 0.5rem;
+            line-height: 1.45;
         }
 
-        .alert-recommendation i {
-            color: #28a745;
+        .alert-rec-box i {
+            color: #2be65e;
             margin-top: 2px;
+            font-size: 0.9rem;
             flex-shrink: 0;
         }
 
-        .alert-context {
-            font-size: .7rem;
-            color: rgba(155, 163, 175, .7);
-            margin-top: .3rem;
+        .global-disclaimer {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 0.6rem 0.8rem;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
             font-style: italic;
-            line-height: 1.3;
+        }
+
+        .global-disclaimer i {
+            color: var(--gold);
+            font-size: 0.8rem;
+            margin-top: 2px;
+            flex-shrink: 0;
         }
 
         .no-alerts {
@@ -1267,16 +1375,320 @@
             background: rgba(212, 175, 55, .5);
         }
 
+        .chart-header-subtitle::before {
+            content: "Últimas 10 rodadas";
+        }
+
+        /* Login Screen Overlay */
+        .login-overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, #062310 0%, #030805 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            padding: 1rem;
+            backdrop-filter: blur(12px);
+        }
+
+        .login-card {
+            background: rgba(6, 26, 14, 0.96);
+            border: 1.5px solid var(--gold);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 420px;
+            padding: 2.25rem 2rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(212, 175, 55, 0.2);
+            text-align: center;
+            animation: fadeInScale 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+
+        @keyframes fadeInScale {
+            0% { transform: scale(0.92); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .login-logo {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+        }
+
+        .login-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.6rem;
+            background: linear-gradient(135deg, #fff 30%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.25rem;
+        }
+
+        .login-subtitle {
+            font-size: 0.8rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-credentials-box {
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px dashed rgba(212, 175, 55, 0.4);
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            text-align: left;
+            color: #fff;
+        }
+
+        .login-credentials-title {
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .login-group {
+            position: relative;
+            margin-bottom: 1.25rem;
+            text-align: left;
+        }
+
+        .login-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .login-input-wrapper {
+            position: relative;
+        }
+
+        .login-input-wrapper i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+            font-size: 0.95rem;
+            pointer-events: none;
+        }
+
+        .login-input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid var(--border-green);
+            border-radius: 8px;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .login-input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .login-error {
+            color: #ff4d5e;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 0.5rem;
+            display: none;
+            text-align: left;
+        }
+
+        .login-divider {
+            display: flex;
+            align-items: center;
+            margin: 1.25rem 0;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .login-divider::before,
+        .login-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .login-divider span {
+            padding: 0 0.75rem;
+        }
+
+        /* Active triggers HUD box glow */
+        .hud-box-active-trigger {
+            border-color: #2be65e !important;
+            background: rgba(43, 230, 94, 0.12) !important;
+            box-shadow: 0 0 10px rgba(43, 230, 94, 0.25);
+            animation: pulseGlowGreenSubtle 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlowGreenSubtle {
+            0%, 100% { box-shadow: 0 0 10px rgba(43, 230, 94, 0.25); }
+            50% { box-shadow: 0 0 18px rgba(43, 230, 94, 0.5); }
+        }
+
+        /* Action recommendation banner */
+        .alert-action-banner {
+            background: linear-gradient(135deg, #198754 0%, #0a3d1c 100%);
+            border: 1px solid #2be65e;
+            border-radius: 8px;
+            padding: 0.55rem 0.75rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 10px rgba(43, 230, 94, 0.2);
+            animation: pulseGlowGreen 2.2s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlowGreen {
+            0%, 100% { box-shadow: 0 0 10px rgba(43, 230, 94, 0.2); border-color: #2be65e; }
+            50% { box-shadow: 0 0 16px rgba(43, 230, 94, 0.5); border-color: #5eff8e; }
+        }
+
+        /* Cross-Combo alerts styling */
+        .cross-combo-alert {
+            background: linear-gradient(135deg, rgba(20, 15, 5, 0.95) 0%, rgba(6, 26, 14, 0.95) 100%);
+            border: 2px solid var(--gold) !important;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.45);
+            animation: goldenFlash 2.5s infinite ease-in-out;
+            text-align: center;
+        }
+
+        @keyframes goldenFlash {
+            0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.35); border-color: var(--gold); }
+            50% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.7); border-color: #ffe893; }
+        }
+
+        @keyframes pulseGlowGold {
+            0%, 100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.35); border-color: #ffe893; }
+            50% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.7); border-color: #fffbdf; }
+        }
+
+        .combo-badge {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 0.75rem;
+        }
+
+        .combo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin: 0.75rem 0;
+            text-align: left;
+        }
+
+        .combo-item {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 6px;
+            padding: 0.5rem 0.65rem;
+            font-size: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .combo-item-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .combo-item-value {
+            font-weight: 800;
+            color: #fff;
+            font-size: 0.85rem;
+        }
+
         /* Responsive */
         @media(max-width:1200px) {
             .main-container {
-                grid-template-columns: 1fr;
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .analytics-panel,
+            .control-sidebar {
+                display: contents;
+            }
+
+            #card-board {
+                order: 1;
+            }
+
+            #card-signals {
+                order: 2;
+            }
+
+            #card-charts {
+                order: 3;
+            }
+
+            #card-hotcold {
+                order: 4;
+            }
+
+            #card-strategies {
+                order: 5;
             }
         }
 
         @media(max-width:900px) {
+            .chart-header-subtitle::before {
+                content: "Últimas 6 rodadas" !important;
+            }
+
+            .circles-row-container > div:nth-last-child(n+7) {
+                display: none !important;
+            }
+
             .main-container {
-                grid-template-columns: 1fr;
+                display: flex;
+                flex-direction: column;
                 padding: .75rem;
                 gap: 1rem;
             }
@@ -1286,6 +1698,11 @@
                 flex-direction: column;
                 gap: .75rem;
                 text-align: center;
+            }
+
+            .history-item{
+                width: 30px;
+                height: 30px;
             }
 
             .header-actions {
@@ -1331,6 +1748,50 @@
 </head>
 
 <body>
+    <!-- Login Screen Overlay -->
+    <div class="login-overlay" id="loginScreen">
+        <div class="login-card">
+            <i class="fa-solid fa-circle-notch logo-icon login-logo"></i>
+            <h2 class="login-title">Roulette Pro</h2>
+            <div class="login-subtitle">SaaS Analytics</div>
+            
+            <div class="login-credentials-box">
+                <div class="login-credentials-title">
+                    <i class="fa-solid fa-circle-info"></i> Credenciais de Acesso:
+                </div>
+                <div><strong>E-mail:</strong> admin@roleta.pro</div>
+                <div><strong>Senha:</strong> 123456</div>
+            </div>
+
+            <form onsubmit="handleLoginSubmit(event)">
+                <div class="login-group">
+                    <label class="login-label">E-mail</label>
+                    <div class="login-input-wrapper">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="loginEmail" class="login-input" value="admin@roleta.pro" required>
+                    </div>
+                </div>
+                <div class="login-group">
+                    <label class="login-label">Senha</label>
+                    <div class="login-input-wrapper">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="text" id="loginPassword" class="login-input" value="123456" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn" style="width:100%; margin-top:0.5rem;"><i class="fa-solid fa-right-to-bracket"></i> Entrar no Sistema</button>
+                <div class="login-error" id="loginError"></div>
+            </form>
+
+            <div class="login-divider">
+                <span>Ou</span>
+            </div>
+
+            <button type="button" class="btn btn-outline" style="width:100%; border-color: var(--gold); color: var(--gold);" onclick="bypassLogin()">
+                <i class="fa-solid fa-bolt"></i> Acesso Rápido (Entrar Direto)
+            </button>
+        </div>
+    </div>
+
     <div class="casino-wrapper">
         <header>
             <div class="logo-container">
@@ -1340,21 +1801,17 @@
                 </div>
             </div>
             <div class="header-actions">
-                <button class="sound-toggle-btn" id="soundBtn" onclick="toggleMute()"><i
-                        class="fa-solid fa-volume-high"></i> Som Ativado</button>
-                <button class="btn btn-outline" onclick="undoLast()"><i class="fa-solid fa-rotate-left"></i>
-                    Desfazer</button>
-                <button class="btn btn-outline" onclick="openConfigModal()"><i class="fa-solid fa-gears"></i>
-                    Opções</button>
-                <button class="btn btn-danger" onclick="clearAllData()"><i class="fa-solid fa-trash-can"></i>
-                    Limpar</button>
+                <button class="btn btn-outline" onclick="openConfigModal()"><i class="fa-solid fa-sliders"></i> Ajustar Gatilhos</button>
+                <button class="btn btn-danger" onclick="clearAllData()"><i class="fa-solid fa-trash-can"></i> Limpar Dados</button>
+                <button class="sound-toggle-btn" id="soundBtn" onclick="toggleMute()"><i class="fa-solid fa-volume-high"></i> Som Ativado</button>
+                <button class="btn btn-outline" style="border-color: rgba(220,53,69,0.5); color: #ff4d5e; padding: .5rem .75rem;" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>
             </div>
         </header>
 
         <div class="main-container">
             <!-- LEFT -->
             <div class="analytics-panel">
-                <div class="dashboard-card">
+                <div class="dashboard-card" id="card-board">
                     <div class="card-header">
                         <div class="card-title"><i class="fa-solid fa-sliders"></i> Painel de Controle e Tabuleiro</div>
                         <div style="display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;">
@@ -1399,11 +1856,11 @@
                 </div>
 
                 <!-- Trend Charts -->
-                <div class="dashboard-card">
+                <div class="dashboard-card" id="card-charts">
                     <div class="card-header">
                         <div class="card-title"><i class="fa-solid fa-chart-line"></i> Gráficos de Sequência &amp; Fluxo
                             de Tendência</div>
-                        <div class="card-title" style="font-size:.8rem;color:var(--gold);">Últimas 10 rodadas</div>
+                        <div class="card-title chart-header-subtitle" style="font-size:.8rem;color:var(--gold);"></div>
                     </div>
                     <div class="charts-row">
                         <div class="trend-chart-box">
@@ -1479,12 +1936,13 @@
             <!-- RIGHT -->
             <div class="control-sidebar">
                 <!-- Delay HUD -->
-                <div class="dashboard-card">
+                <div class="dashboard-card" id="card-signals">
                     <div class="card-header">
                         <div class="card-title"><i class="fa-solid fa-brain"></i> Sinais de Probabilidade</div>
                         <span
                             style="background:rgba(40,167,69,.2);border:1px solid #28a745;color:#28a745;padding:2px 8px;border-radius:4px;font-size:.7rem;font-weight:800;">ATRASOS</span>
                     </div>
+                    
                     <div class="hud-delays-grid" id="hudGrid"></div>
                     <div class="alerts-container" id="alertsList">
                         <div class="no-alerts">Alimente o sistema clicando nos números do tabuleiro para gerar alertas
@@ -1493,7 +1951,7 @@
                 </div>
 
                 <!-- Hot/Cold -->
-                <div class="dashboard-card">
+                <div class="dashboard-card" id="card-hotcold">
                     <div class="card-header">
                         <div class="card-title"><i class="fa-solid fa-fire"></i> Hot &amp; Cold Numbers</div>
                     </div>
@@ -1517,7 +1975,7 @@
 
 
                 <!-- Strategies -->
-                <div class="dashboard-card">
+                <div class="dashboard-card" id="card-strategies">
                     <div class="card-header">
                         <div class="card-title"><i class="fa-solid fa-robot"></i> Simulador de Estratégias</div>
                     </div>
@@ -1567,7 +2025,10 @@
         }
         function load() {
             try {
-                const h = localStorage.getItem('rp2_hist'); if (h) numberHistory = JSON.parse(h);
+                // Sempre inicia o histórico limpo e zerado ao carregar/recarregar a página
+                localStorage.removeItem('rp2_hist');
+                numberHistory = [];
+                
                 const t = localStorage.getItem('rp2_trg'); if (t) { triggers = { ...triggers, ...JSON.parse(t) }; syncInputs(); }
                 const i = localStorage.getItem('rp2_inv'); if (i !== null) { invertColors = JSON.parse(i); document.getElementById('invertColorsToggle').checked = invertColors; }
             } catch (e) { }
@@ -1627,7 +2088,10 @@
             boardRows.forEach((row, rowIdx) => {
                 row.forEach((n, colIdx) => {
                     const c = document.createElement("div");
-                    const altColor = (colIdx % 2 === 0) ? rowStartColors[rowIdx] : (rowStartColors[rowIdx] === "red" ? "black" : "red");
+                    let altColor = (colIdx % 2 === 0) ? rowStartColors[rowIdx] : (rowStartColors[rowIdx] === "red" ? "black" : "red");
+                    if (invertColors) {
+                        altColor = (altColor === "red") ? "black" : "red";
+                    }
                     c.className = `board-cell cell-${altColor}`; c.innerText = n; c.id = `cell-${n}`;
                     c.onclick = () => addNum(n);
                     const h = document.createElement("div"); h.className = "heatmap-overlay"; h.id = `heatmap-${n}`;
@@ -1663,7 +2127,7 @@
             const grid = document.getElementById("numpadGrid"); grid.innerHTML = "";
             [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36].forEach(n => {
                 const btn = document.createElement("button");
-                const col = n === 0 ? 'green-zero' : (n % 2 === 1 ? 'red' : 'black');
+                const col = n === 0 ? 'green-zero' : getColor(n);
                 btn.className = `numpad-btn ${col}`;
                 btn.innerText = n; btn.onclick = () => addNum(n);
                 grid.appendChild(btn);
@@ -1693,11 +2157,35 @@
         </div>`).join("");
         }
         function renderHUD(stats) {
+            const triggerMap = {
+                red: triggers.color,
+                black: triggers.color,
+                even: triggers.evenOdd,
+                odd: triggers.evenOdd,
+                low: triggers.highLow,
+                high: triggers.highLow,
+                dozen1: triggers.dozen,
+                dozen2: triggers.dozen,
+                dozen3: triggers.dozen,
+                col1: triggers.column,
+                col2: triggers.column,
+                col3: triggers.column
+            };
             HUD_CONFIG.forEach(c => {
                 const v = stats.delays[c.key] || 0;
+                const trg = triggerMap[c.key] || 4;
                 const el = document.getElementById(c.id), bar = document.getElementById(c.id + "Bar");
                 if (el) el.innerText = v;
                 if (bar) bar.style.width = Math.min(100, (v / c.max) * 100) + "%";
+                
+                const box = el ? el.closest(".hud-box") : null;
+                if (box) {
+                    if (v >= trg) {
+                        box.classList.add("hud-box-active-trigger");
+                    } else {
+                        box.classList.remove("hud-box-active-trigger");
+                    }
+                }
             });
         }
 
@@ -1864,28 +2352,142 @@
         let alertSounded = false;
         function genAlerts(stats) {
             const list = document.getElementById("alertsList"); list.innerHTML = "";
-            const CONTEXT = "Nota: cada rodada é estatisticamente independente. Atrasos não garantem saída futura — a vantagem da casa é sempre constante.";
             const alerts = [];
-            const chk = (v, trg, title, desc, rec) => { if (v >= trg) alerts.push({ danger: true, title, desc, rec, ctx: CONTEXT }); };
-            chk(stats.delays.dozen1, triggers.dozen, "Atraso: 1ª Dúzia (1–12)", `1ª Dúzia sem sair há <b>${stats.delays.dozen1} rodadas</b>. A média de saída esperada é ~3 rodadas.`, "Monitorar com gestão de banca rigorosa. Não aplique Martingale sem limite pré-definido.");
-            chk(stats.delays.dozen2, triggers.dozen, "Atraso: 2ª Dúzia (13–24)", `2ª Dúzia sem sair há <b>${stats.delays.dozen2} rodadas</b>.`, "Monitorar. Aposte valor fixo e pré-determinado.");
-            chk(stats.delays.dozen3, triggers.dozen, "Atraso: 3ª Dúzia (25–36)", `3ª Dúzia sem sair há <b>${stats.delays.dozen3} rodadas</b>.`, "Monitorar com cautela e banca controlada.");
-            chk(stats.delays.col1, triggers.column, "Atraso: Coluna 1", `Coluna 1 sem sair há <b>${stats.delays.col1} rodadas</b>.`, "Coluna 1 em atenção. Cobrir duas colunas reduz risco, mas também retorno.");
-            chk(stats.delays.col2, triggers.column, "Atraso: Coluna 2", `Coluna 2 sem sair há <b>${stats.delays.col2} rodadas</b>.`, "Coluna 2 em atenção.");
-            chk(stats.delays.col3, triggers.column, "Atraso: Coluna 3", `Coluna 3 sem sair há <b>${stats.delays.col3} rodadas</b>.`, "Coluna 3 em atenção.");
-            chk(stats.delays.red, triggers.color, "Sequência Preta Longa", `Vermelho ausente há <b>${stats.delays.red} rodadas</b> — sequência de Preto/Zero.`, "Cada rodada ainda tem ~48,6% de chance para Vermelho. Sequências longas são raras, mas não impossíveis.");
-            chk(stats.delays.black, triggers.color, "Sequência Vermelha Longa", `Preto ausente há <b>${stats.delays.black} rodadas</b> — sequência de Vermelho/Zero.`, "Cada rodada tem ~48,6% de chance para Preto. Gerencie o risco.");
-            chk(stats.delays.even, triggers.evenOdd, "Atraso: Pares", `Pares ausentes há <b>${stats.delays.even} rodadas</b>.`, "Par em atraso estatístico. Aposte com valor fixo.");
-            chk(stats.delays.odd, triggers.evenOdd, "Atraso: Ímpares", `Ímpares ausentes há <b>${stats.delays.odd} rodadas</b>.`, "Ímpar em atraso estatístico.");
-            if (!alerts.length) { list.innerHTML = '<div class="no-alerts">Nenhum atraso significativo detectado. Continue registrando rodadas para gerar alertas.</div>'; alertSounded = false; return; }
+            const chk = (v, trg, title, desc, rec, type, target) => { 
+                if (v >= trg) {
+                    alerts.push({ danger: true, title, desc, rec, value: v, trigger: trg, type, target }); 
+                }
+            };
+            chk(stats.delays.dozen1, triggers.dozen, "Chances Excelentes: 1ª Dúzia", `A 1ª Dúzia está sem sair há ${stats.delays.dozen1} rodadas consecutivas.`, "Fazer entrada na 1ª Dúzia com proteção caso julgue necessário.", "Dúzia", "1ª DÚZIA");
+            chk(stats.delays.dozen2, triggers.dozen, "Chances Excelentes: 2ª Dúzia", `A 2ª Dúzia está sem sair há ${stats.delays.dozen2} rodadas consecutivas.`, "Fazer entrada na 2ª Dúzia com proteção caso julgue necessário.", "Dúzia", "2ª DÚZIA");
+            chk(stats.delays.dozen3, triggers.dozen, "Chances Excelentes: 3ª Dúzia", `A 3ª Dúzia está sem sair há ${stats.delays.dozen3} rodadas consecutivas.`, "Fazer entrada na 3ª Dúzia com proteção caso julgue necessário.", "Dúzia", "3ª DÚZIA");
+            chk(stats.delays.col1, triggers.column, "Chances Excelentes: Coluna 1", `A Coluna 1 está sem sair há ${stats.delays.col1} rodadas consecutivas.`, "Fazer entrada na Coluna 1 para cobrir o atraso.", "Coluna", "COLUNA 1");
+            chk(stats.delays.col2, triggers.column, "Chances Excelentes: Coluna 2", `A Coluna 2 está sem sair há ${stats.delays.col2} rodadas consecutivas.`, "Fazer entrada na Coluna 2 para cobrir o atraso.", "Coluna", "COLUNA 2");
+            chk(stats.delays.col3, triggers.column, "Chances Excelentes: Coluna 3", `A Coluna 3 está sem sair há ${stats.delays.col3} rodadas consecutivas.`, "Fazer entrada na Coluna 3 para cobrir o atraso.", "Coluna", "COLUNA 3");
+            chk(stats.delays.red, triggers.color, "Chances Excelentes: Vermelho", `A cor Vermelha está sem sair há ${stats.delays.red} rodadas consecutivas.`, "Fazer entrada na cor Vermelha.", "Cor", "VERMELHO");
+            chk(stats.delays.black, triggers.color, "Chances Excelentes: Preto", `A cor Preta está sem sair há ${stats.delays.black} rodadas consecutivas.`, "Fazer entrada na cor Preta.", "Cor", "PRETO");
+            chk(stats.delays.even, triggers.evenOdd, "Chances Excelentes: Números Pares", `Os números Pares estão sem sair há ${stats.delays.even} rodadas consecutivas.`, "Fazer entrada em Par.", "Paridade", "PAR");
+            chk(stats.delays.odd, triggers.evenOdd, "Chances Excelentes: Números Ímpares", `Os números Ímpares estão sem sair há ${stats.delays.odd} rodadas consecutivas.`, "Fazer entrada em Ímpar.", "Paridade", "ÍMPAR");
+
+            // --- CROSS COMBINATION ANALYSIS (Col, Doz, EO, Color) ---
+            let activeDoz = null, dozVal = 0;
+            if (stats.delays.dozen1 >= triggers.dozen) { activeDoz = "1ª Dúzia"; dozVal = stats.delays.dozen1; }
+            else if (stats.delays.dozen2 >= triggers.dozen) { activeDoz = "2ª Dúzia"; dozVal = stats.delays.dozen2; }
+            else if (stats.delays.dozen3 >= triggers.dozen) { activeDoz = "3ª Dúzia"; dozVal = stats.delays.dozen3; }
+
+            let activeCol = null, colVal = 0;
+            if (stats.delays.col1 >= triggers.column) { activeCol = "Coluna 1"; colVal = stats.delays.col1; }
+            else if (stats.delays.col2 >= triggers.column) { activeCol = "Coluna 2"; colVal = stats.delays.col2; }
+            else if (stats.delays.col3 >= triggers.column) { activeCol = "Coluna 3"; colVal = stats.delays.col3; }
+
+            let activeColor = null, colorVal = 0;
+            if (stats.delays.red >= triggers.color) { activeColor = "Vermelho"; colorVal = stats.delays.red; }
+            else if (stats.delays.black >= triggers.color) { activeColor = "Preto"; colorVal = stats.delays.black; }
+
+            let activeEO = null, eoVal = 0;
+            if (stats.delays.even >= triggers.evenOdd) { activeEO = "Par"; eoVal = stats.delays.even; }
+            else if (stats.delays.odd >= triggers.evenOdd) { activeEO = "Ímpar"; eoVal = stats.delays.odd; }
+
+            let comboCount = 0;
+            if (activeDoz) comboCount++;
+            if (activeCol) comboCount++;
+            if (activeColor) comboCount++;
+            if (activeEO) comboCount++;
+
+            if (comboCount >= 3) {
+                const targets = [];
+                if (activeDoz) targets.push(activeDoz);
+                if (activeCol) targets.push(activeCol);
+                if (activeColor) targets.push(activeColor.toUpperCase());
+                if (activeEO) targets.push(activeEO.toUpperCase());
+
+                const comboCard = document.createElement("div");
+                comboCard.className = "cross-combo-alert";
+                comboCard.innerHTML = `
+                    <div class="combo-badge">
+                        <i class="fa-solid fa-star"></i> 
+                        ${comboCount === 4 ? "CHANCES BOAS MÁXIMAS (4/4)" : "CHANCES BOAS FORTES (3/4)"}
+                    </div>
+                    <div class="alert-action-banner" style="background: linear-gradient(135deg, #aa841c 0%, #d4af37 100%); border-color: #ffe893; box-shadow: 0 0 15px rgba(212,175,55,0.4); animation: pulseGlowGold 2s infinite ease-in-out;">
+                        <i class="fa-solid fa-circle-check"></i> JOGADA ULTRA INDICADA!
+                    </div>
+                    <p style="font-size: 0.85rem; color: #f3f4f6; margin-bottom: 0.5rem; text-align: left; line-height: 1.4; font-weight: 500;">
+                        Gatilho ativado! Três ou quatro tendências fortes de atraso coincidiram, aumentando consideravelmente a probabilidade estatística para esta jogada.
+                    </p>
+                    <div class="combo-grid">
+                        ${activeDoz ? `<div class="combo-item"><span class="combo-item-label">Dúzia</span><span class="combo-item-value" style="color:var(--gold); font-weight: 800;">${activeDoz} (Atr: ${dozVal})</span></div>` : ''}
+                        ${activeCol ? `<div class="combo-item"><span class="combo-item-label">Coluna</span><span class="combo-item-value" style="color:var(--gold); font-weight: 800;">${activeCol} (Atr: ${colVal})</span></div>` : ''}
+                        ${activeColor ? `<div class="combo-item"><span class="combo-item-label">Cor</span><span class="combo-item-value" style="color:var(--gold); font-weight: 800;">${activeColor} (Atr: ${colorVal})</span></div>` : ''}
+                        ${activeEO ? `<div class="combo-item"><span class="combo-item-label">Paridade</span><span class="combo-item-value" style="color:var(--gold); font-weight: 800;">${activeEO} (Atr: ${eoVal})</span></div>` : ''}
+                    </div>
+                    <div class="alert-rec-box" style="margin-top: 0.5rem; background: rgba(212, 175, 55, 0.08); border-color: rgba(212, 175, 55, 0.25);">
+                        <i class="fa-solid fa-coins" style="color: var(--gold); font-size: 1.1rem;"></i>
+                        <div style="text-align: left;">
+                            <strong>💡 Onde Apostar:</strong> Coloque suas fichas em: <strong style="color: #fff; font-size: 0.95rem;">${targets.join(" + ")}</strong>.
+                        </div>
+                    </div>
+                `;
+                list.appendChild(comboCard);
+            }
+
+            if (!alerts.length && comboCount < 3) { 
+                list.innerHTML = '<div class="no-alerts">Nenhum atraso significativo ou gatilho cruzado detectado. Continue registrando para gerar alertas.</div>'; 
+                alertSounded = false; 
+                return; 
+            }
+
             alerts.forEach(a => {
-                const card = document.createElement("div"); card.className = `insight-alert${a.danger ? " danger" : ""}`;
-                card.innerHTML = `<div class="alert-header"><span>${a.title}</span><i class="fa-solid fa-triangle-exclamation"></i></div>
-            <div class="alert-desc">${a.desc}</div>
-            <div class="alert-recommendation"><i class="fa-solid fa-circle-check"></i> ${a.rec}</div>
-            <div class="alert-context"><i class="fa-solid fa-circle-info"></i> ${a.ctx}</div>`;
+                const card = document.createElement("div"); 
+                card.className = `insight-alert${a.danger ? " danger" : ""}`;
+                card.innerHTML = `
+                    <div class="alert-action-banner">
+                        <i class="fa-solid fa-circle-play"></i> ENTRADA RECOMENDADA: ${a.target}
+                    </div>
+                    <div class="alert-header-row">
+                        <div class="alert-badge-group">
+                            <span class="alert-pulse-dot"></span>
+                            <span class="alert-title-text">${a.title}</span>
+                        </div>
+                        <span class="alert-pill-badge">${a.type}</span>
+                    </div>
+                    <div class="alert-stats-display">
+                        <div class="alert-stat-item">
+                            <span class="alert-stat-value highlighted">${a.value}</span>
+                            <span class="alert-stat-label">Atraso</span>
+                        </div>
+                        <div class="alert-stat-item">
+                            <span class="alert-stat-value">${a.trigger}</span>
+                            <span class="alert-stat-label">Gatilho</span>
+                        </div>
+                        <div class="alert-stat-item">
+                            <span class="alert-stat-value">${a.type === "Dúzia" || a.type === "Coluna" ? "~3 rd" : "~2 rd"}</span>
+                            <span class="alert-stat-label">Média</span>
+                        </div>
+                    </div>
+                    <div class="alert-description-box">
+                        <i class="fa-solid fa-chart-line" style="margin-right: 4px; color: var(--gold);"></i> 
+                        ${a.desc}
+                    </div>
+                    <div class="alert-rec-box">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <div>
+                            <strong>Recomendação:</strong> ${a.rec}
+                        </div>
+                    </div>
+                `;
                 list.appendChild(card);
             });
+
+            const disclaimer = document.createElement("div");
+            disclaimer.className = "global-disclaimer";
+            disclaimer.innerHTML = `
+                <i class="fa-solid fa-circle-info"></i>
+                <div>
+                    <strong>Aviso Importante:</strong> Cada rodada é independente. Atrasos históricos servem para análise de fluxo, mas não garantem saídas futuras imediatas. Jogue com responsabilidade.
+                </div>
+            `;
+            list.appendChild(disclaimer);
+
             if (!alertSounded) { playSound("alert"); alertSounded = true; }
         }
 
@@ -1985,10 +2587,50 @@
             if (e.key === "z" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); undoLast(); }
         });
 
+        // ===== Authentication =====
+        function handleLoginSubmit(event) {
+            if (event) event.preventDefault();
+            const email = document.getElementById("loginEmail").value.trim();
+            const pass = document.getElementById("loginPassword").value;
+            const err = document.getElementById("loginError");
+            
+            if (email === "admin@roleta.pro" && pass === "123456") {
+                sessionStorage.setItem("rp2_logged", "true");
+                document.getElementById("loginScreen").style.display = "none";
+                playSound("click");
+            } else {
+                err.style.display = "block";
+                err.innerText = "Credenciais inválidas. Use o exemplo acima ou o acesso rápido.";
+                playSound("alert");
+            }
+        }
+
+        function bypassLogin() {
+            sessionStorage.setItem("rp2_logged", "true");
+            document.getElementById("loginScreen").style.display = "none";
+            playSound("click");
+        }
+
+        function checkAuth() {
+            const logged = sessionStorage.getItem("rp2_logged");
+            if (logged === "true") {
+                document.getElementById("loginScreen").style.display = "none";
+            } else {
+                document.getElementById("loginScreen").style.display = "flex";
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem("rp2_logged");
+            location.reload();
+        }
+
         // ===== Init =====
         window.onload = () => {
+            checkAuth();
+            load();
             buildBoard(); buildHUD(); buildStrategies(); buildNumpad();
-            load(); recalc();
+            recalc();
             if (numberHistory.length) highlightCell(numberHistory[numberHistory.length - 1]);
             window.onclick = e => { if (e.target === document.getElementById("configModal")) closeConfigModal(); };
             document.getElementById("keyboardInput").focus();
